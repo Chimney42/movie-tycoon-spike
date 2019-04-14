@@ -5,6 +5,6 @@ describe('A screenplay', () => {
     it('should have an id', () => {
         const id = 213;
         const screenplay = new Screenplay(id);
-        expect(screenplay.getId()).to.equal(id);
+        expect(screenplay.id).to.equal(id);
     });
   });
