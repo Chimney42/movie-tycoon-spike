@@ -1,6 +1,8 @@
 import Genre from './genre';
+import { v4 as uuid } from 'uuid';
+
 class Screenplay {
-  readonly id: number;
+  readonly id: String;
   readonly genre: Genre;
   private rating: number|null = null;
 
@@ -8,8 +10,8 @@ class Screenplay {
   private supportingActorCount: number = 0;
   private backgroundActorCount: number = 0;
 
-  constructor(id: number, genre: Genre) {
-    this.id = id;
+  constructor(genre: Genre) {
+    this.id = uuid();
     this.genre = genre;
   }
 

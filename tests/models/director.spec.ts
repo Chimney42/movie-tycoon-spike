@@ -2,16 +2,18 @@ import Director from '../../src/models/director';
 import { expect } from 'chai';
 
 describe('A director', () => {
-  const id = 231;
   const name = 'Foo Bar';
   let director: Director;
 
   beforeEach(() => {
-    director = new Director(id, name);
-  })
+    director = new Director(name);
+  });
 
-  it('should have an id and a name', () => {
-    expect(director.id).to.equal(id);
+  it('should have an id', () => {
+    expect(director.id).to.be;
+  });
+
+  it('should take a name on creation', () => {
     expect(director.name).to.equal(name);
   });
 

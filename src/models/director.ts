@@ -1,10 +1,12 @@
+import { v4 as uuid } from 'uuid';
+
 class Director {
-  readonly id: number;
+  readonly id: String;
   readonly name: String;
   private rating: number|null = null;
 
-  constructor(id: number, name: String) {
-    this.id = id;
+  constructor(name: String) {
+    this.id = uuid();
     this.name = name;
   }
 

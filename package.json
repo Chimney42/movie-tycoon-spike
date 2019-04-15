@@ -30,6 +30,8 @@
     "typescript": "^3.4.3"
   },
   "dependencies": {
-    "express": "^4.16.4"
+    "@types/uuid": "^3.4.4",
+    "express": "^4.16.4",
+    "uuid": "^3.3.2"
   }
 }

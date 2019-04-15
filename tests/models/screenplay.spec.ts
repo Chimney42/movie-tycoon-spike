@@ -3,16 +3,18 @@ import Genre from '../../src/models/genre';
 import { expect } from 'chai';
 
 describe('A screenplay', () => {
-  const id = 213;
   const genre = Genre.Action;
   let screenplay: Screenplay;
 
   beforeEach(() => {
-    screenplay = new Screenplay(id, genre);
+    screenplay = new Screenplay(genre);
   });
 
-  it('should have an id and a genre', () => {
-    expect(screenplay.id).to.equal(id);
+  it('should have an id', () => {
+    expect(screenplay.id).to.be;
+  });
+
+  it('should take a genre on creation', () => {
     expect(screenplay.genre).to.equal(genre);
   });
 
