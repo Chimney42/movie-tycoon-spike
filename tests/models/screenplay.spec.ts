@@ -6,7 +6,7 @@ describe('A screenplay', () => {
         const id = 213;
         const genre = Genre.Action;
         let screenplay: Screenplay;
-        
+
     beforeEach(() => {
         screenplay = new Screenplay(id, genre);
     });
@@ -22,5 +22,23 @@ describe('A screenplay', () => {
         expect(screenplay.getRating()).not.to.equal(rating);
         screenplay.setRating(rating);
         expect(screenplay.getRating()).to.equal(rating);
+    });
+
+    it('should have settable number of all actor types', () => {
+        const leadingActorCount = 2;
+        const supportingActorCount = 4;
+        const backgroundActorCount = 6;
+
+        expect(screenplay.getLeadingActorCount()).not.to.equal(leadingActorCount);
+        expect(screenplay.getSupportingActorCount()).not.to.equal(supportingActorCount);
+        expect(screenplay.getBackgroundActorCount()).not.to.equal(backgroundActorCount);
+        
+        screenplay.setLeadingActorCount(leadingActorCount);
+        screenplay.setSupportingActorCount(supportingActorCount);
+        screenplay.setBackgroundActorCount(backgroundActorCount);
+
+        expect(screenplay.getLeadingActorCount()).to.equal(leadingActorCount);
+        expect(screenplay.getSupportingActorCount()).to.equal(supportingActorCount);
+        expect(screenplay.getBackgroundActorCount()).to.equal(backgroundActorCount);
     });
   });
