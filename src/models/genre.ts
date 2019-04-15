@@ -1,7 +1,7 @@
 enum Genre {
-    Action,
-    Romance,
-    Comedy
+  Action,
+  Romance,
+  Comedy
 }
 
 export default Genre;
