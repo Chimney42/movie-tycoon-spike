@@ -1,27 +1,41 @@
-import Client, { CouchDoc } from "davenport";
-
+import Nano from 'nano';
+import UserDoc from './userDoc';
 import Screenplay from '../../src/models/screenplay';
 
-interface UserDoc extends CouchDoc {
-  id: String,
-}
-
 class CouchDb {
-  private DB_URL: string = "0.0.0.0";
+  private DB_URL: string = 'http://localhost:5984';
   private DB_NAME: string = "movie-tycoon";
-  private client: Client<UserDoc>;
+  private client: Nano.DocumentScope<UserDoc>;
   
-  constructor(client: Client<UserDoc>|null) {
+  constructor(client: Nano.DocumentScope<UserDoc>|null) {
     if (client) {
       this.client = client;
     } else {
-      this.client = new Client<UserDoc>(this.DB_URL, this.DB_NAME);
+      const nano = Nano(this.DB_URL);
+      this.client = nano.use(this.DB_NAME);
     }
   }
 
+  private getNewUserDoc(userId: String): UserDoc {
+    return {
+      userId,
+      screenplays: []
+    } as UserDoc;
+  }
+
   async addScreenplayToUser(screenplay: Screenplay, userId: string) {
-    const userDoc = await this.client.get(userId);
+    let userDoc: UserDoc;
+    try {
+      userDoc = await this.client.get(userId);
+    } catch (err) {
+      userDoc = this.getNewUserDoc(userId);
+    }
+    if (userDoc.screenplays.indexOf(screenplay) < 0) {
+      userDoc.screenplays.push(screenplay);
+    }
+
+    await this.client.insert(userDoc, userId);
   }
 }
 
-export {UserDoc, CouchDb};
+export default CouchDb;

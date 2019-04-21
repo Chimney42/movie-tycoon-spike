@@ -3,21 +3,67 @@ import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 chai.use(sinonChai);
 
-import Client from "davenport";
-import {UserDoc, CouchDb} from '../../src/lib/couchDb';
+import Nano from 'nano';
+import CouchDb from '../../src/lib/couchDb';
+import UserDoc from '../../src/lib/userDoc.js';
 import Genre from '../../src/models/genre';
 import Screenplay from '../../src/models/screenplay';
 
 describe('The couchDB client', () => {
-  it('should add screenplay to user doc', async () => {
-    const clientStub: Client<UserDoc> = new Client<UserDoc>('', '');
-    sinon.stub(clientStub, 'get');
-    const couchDBClient = new CouchDb(clientStub);
-
+  describe('adding screenplay to user', () => {
     const userId = 'fnwo432e-fi2423noe';
     const screenplay = new Screenplay(Genre.Action);
-    await couchDBClient.addScreenplayToUser(screenplay, userId);
+    const baseDoc: UserDoc = {
+      userId,
+      screenplays: []
+    };
+    let getBaseDocRes: Nano.DocumentGetResponse & UserDoc;
+    let baseDocWithScreenplay: UserDoc;
+    let clientStub: Nano.DocumentScope<UserDoc>;
+    let getStub: sinon.SinonStub;
+    let couchDBClient: CouchDb;
 
-    expect(clientStub.get).to.have.been.calledWith(userId);
+    beforeEach(() => {
+      clientStub = Nano("http://localhost:5984").db.use('');
+      couchDBClient = new CouchDb(clientStub);
+
+      getBaseDocRes = JSON.parse(JSON.stringify(baseDoc)) as Nano.DocumentGetResponse & UserDoc;
+      baseDocWithScreenplay = JSON.parse(JSON.stringify(baseDoc));
+      baseDocWithScreenplay.screenplays.push(screenplay);
+
+      getStub = sinon.stub(clientStub, 'get');
+      getStub.returns(Promise.resolve(getBaseDocRes));
+      sinon.stub(clientStub, 'insert');
+    });
+
+    it('should check if doc already exists', async () => {  
+      await couchDBClient.addScreenplayToUser(screenplay, userId);
+  
+      expect(clientStub.get).to.have.been.calledWith(userId);
+    });
+
+    it('should add screenplay to existing doc', async () => {
+      await couchDBClient.addScreenplayToUser(screenplay, userId);
+      
+      expect(clientStub.insert).to.have.been.calledWith(baseDocWithScreenplay, userId);
+    });
+
+    it('should put new doc if non exists', async () => {
+      getStub.returns(Promise.reject());
+
+      await couchDBClient.addScreenplayToUser(screenplay, userId);
+
+      expect(clientStub.insert).to.have.been.calledWith(baseDocWithScreenplay, userId);
+    });
+
+    it('should not add screenplay if it is already in the list', async () => {
+      const getDocWithScreenplayRes = JSON.parse(JSON.stringify(baseDoc)) as Nano.DocumentGetResponse & UserDoc;
+      getDocWithScreenplayRes.screenplays.push(screenplay);
+      getStub.returns(Promise.resolve(getDocWithScreenplayRes));
+
+      await couchDBClient.addScreenplayToUser(screenplay, userId);
+
+      expect(clientStub.insert).to.have.been.calledWith(baseDocWithScreenplay, userId);
+    });
   });
 })
