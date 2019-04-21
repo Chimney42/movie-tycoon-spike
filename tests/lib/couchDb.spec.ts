@@ -15,7 +15,10 @@ describe('The couchDB client', () => {
     const screenplay = new Screenplay(Genre.Action);
     const baseDoc: UserDoc = {
       userId,
-      screenplays: []
+      screenplays: [],
+      owned: {
+        screenplays: []
+      }
     };
     let getBaseDocRes: Nano.DocumentGetResponse & UserDoc;
     let baseDocWithScreenplay: UserDoc;
@@ -29,7 +32,7 @@ describe('The couchDB client', () => {
 
       getBaseDocRes = JSON.parse(JSON.stringify(baseDoc)) as Nano.DocumentGetResponse & UserDoc;
       baseDocWithScreenplay = JSON.parse(JSON.stringify(baseDoc));
-      baseDocWithScreenplay.screenplays.push(screenplay);
+      baseDocWithScreenplay.owned.screenplays.push(screenplay);
 
       getStub = sinon.stub(clientStub, 'get');
       getStub.returns(Promise.resolve(getBaseDocRes));
@@ -58,7 +61,7 @@ describe('The couchDB client', () => {
 
     it('should not add screenplay if it is already in the list', async () => {
       const getDocWithScreenplayRes = JSON.parse(JSON.stringify(baseDoc)) as Nano.DocumentGetResponse & UserDoc;
-      getDocWithScreenplayRes.screenplays.push(screenplay);
+      getDocWithScreenplayRes.owned.screenplays.push(screenplay);
       getStub.returns(Promise.resolve(getDocWithScreenplayRes));
 
       await couchDBClient.addScreenplayToUser(screenplay, userId);

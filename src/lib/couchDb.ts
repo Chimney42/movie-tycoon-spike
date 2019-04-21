@@ -19,7 +19,10 @@ class CouchDb {
   private getNewUserDoc(userId: String): UserDoc {
     return {
       userId,
-      screenplays: []
+      screenplays: [],
+      owned: {
+        screenplays: []
+      }
     } as UserDoc;
   }
 
@@ -30,10 +33,9 @@ class CouchDb {
     } catch (err) {
       userDoc = this.getNewUserDoc(userId);
     }
-    if (userDoc.screenplays.indexOf(screenplay) < 0) {
-      userDoc.screenplays.push(screenplay);
+    if (!userDoc.owned.screenplays.find((sp) => sp.id == screenplay.id)) {
+      userDoc.owned.screenplays.push(screenplay);
     }
-
     await this.client.insert(userDoc, userId);
   }
 }
