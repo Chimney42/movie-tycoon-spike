@@ -1,11 +1,6 @@
-import { v4 as uuid } from 'uuid';
-
-class Film {
+interface Film {
   readonly id: String;
-
-  constructor() {
-    this.id = uuid();
-  }
+  readonly name: String;
 }
 
 export default Film;
