@@ -21,19 +21,13 @@ describe('The writing service', () => {
       writingService = new WritingService(userState);
     })
 
-    it('should get screenplay from pool', async () => {
+    it('should move screenplay from pool to owned', async () => {
       const screenplay = {id: screenplayId} as Screenplay;
-      sinon.stub(userState, 'getScreenplayFromPool').returns(Promise.resolve(screenplay));
+      sinon.stub(userState, 'moveScreenplayFromPoolToOwned');
 
       await writingService.addScreenplayToUser(screenplayId);
   
-      expect(userState.getScreenplayFromPool).to.have.been.calledWith(screenplayId);
-    });
-
-    it('should be rejected if screenplay does not exist in pool', async () => {
-      sinon.stub(userState, 'getScreenplayFromPool').returns(Promise.resolve(undefined));
-      
-      await expect(writingService.addScreenplayToUser(screenplayId)).to.be.rejected;
+      expect(userState.moveScreenplayFromPoolToOwned).to.have.been.calledWith(screenplayId);
     });
   });
 });

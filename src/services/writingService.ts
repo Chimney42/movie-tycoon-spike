@@ -9,10 +9,7 @@ class WritingService {
   }
 
   async addScreenplayToUser(screenplayId: string) {
-    const screenplay = await this.state.getScreenplayFromPool(screenplayId);
-    if (!screenplay) {
-      throw new Error(`Screenplay with id ${screenplayId} does not exist in pool`)
-    }
+    return await this.state.moveScreenplayFromPoolToOwned(screenplayId);
   }
 }
 
