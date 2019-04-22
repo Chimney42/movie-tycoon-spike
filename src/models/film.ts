@@ -1,6 +1,6 @@
 interface Film {
-  readonly id: String;
-  readonly name: String;
+  readonly id: string;
+  readonly name: string;
 }
 
 export default Film;

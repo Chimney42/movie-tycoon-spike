@@ -1,7 +1,7 @@
 import Genre from './genre';
 
 interface Screenplay {
-  id: String;
+  id: string;
   genre: Genre;
   rating: number;
 

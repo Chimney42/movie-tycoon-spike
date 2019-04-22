@@ -1,7 +1,7 @@
 import { Filmset } from './filmset';
 
 interface Scene {
-  readonly id: String;
+  readonly id: string;
   readonly set: Filmset;
 }
 

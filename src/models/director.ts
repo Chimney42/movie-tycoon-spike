@@ -1,6 +1,6 @@
 interface Director {
-  readonly id: String;
-  readonly name: String;
+  readonly id: string;
+  readonly name: string;
   rating: number;
 }
 

@@ -10,7 +10,7 @@ enum SetType {
 }
 
 interface Filmset {
-  readonly id: String;
+  readonly id: string;
   readonly size: SetSize;
   readonly type: SetType;
 }
