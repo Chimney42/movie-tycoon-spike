@@ -12,9 +12,9 @@ class CouchDb {
     this.client = nano.use(this.DB_NAME);
   }
 
-  async get(id: string): Promise<UserState> {
+  async get(id: string): Promise<UserDoc> {
     const userDoc = await this.client.get(id);
-    return new UserState(userDoc);
+    return userDoc;
   }
 }
 

@@ -3,7 +3,9 @@ import Screenplay from '../models/screenplay';
 
 interface UserDoc extends MaybeDocument {
   userId: string,
-  screenplays: Screenplay[],
+  pool: {
+    screenplays: Screenplay[],
+  },
   owned: {
     screenplays: Screenplay[]
   }
