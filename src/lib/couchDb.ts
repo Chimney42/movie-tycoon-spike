@@ -13,8 +13,12 @@ class CouchDb {
   }
 
   async get(id: string): Promise<UserDoc> {
-    const userDoc = await this.client.get(id);
-    return userDoc;
+    return await this.client.get(id);
+  }
+
+  async put(doc: UserDoc): Promise<Boolean> {
+    const result = await this.client.insert(doc, doc.userId);
+    return result.ok;
   }
 }
 
