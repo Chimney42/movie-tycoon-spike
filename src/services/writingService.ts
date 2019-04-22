@@ -1,17 +1,18 @@
 import UserDoc from "../lib/userDoc";
 import UserState from '../models/userState';
-import CouchDb from "../lib/couchDb";
 
 class WritingService {
-  client: CouchDb;
+  state: UserState;
 
-  constructor() {
-    this.client = new CouchDb();
+  constructor(state: UserState) {
+    this.state = state;
   }
 
-  async addScreenplayToUser(screenplayId: string, userId: string) {
-    let userState: UserState;
-    userState = await this.client.get(userId);
+  async addScreenplayToUser(screenplayId: string) {
+    const screenplay = await this.state.getScreenplayFromPool(screenplayId);
+    if (!screenplay) {
+      throw new Error(`Screenplay with id ${screenplayId} does not exist in pool`)
+    }
   }
 }
 

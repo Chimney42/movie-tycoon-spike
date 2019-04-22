@@ -1,40 +1,39 @@
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+import chaiAsPromised from 'chai-as-promised';
 chai.use(sinonChai);
+chai.use(chaiAsPromised);
 
-import CouchDb from '../../src/lib/couchDb';
 import WritingService from '../../src/services/writingService';
-import UserDoc from '../../src/lib/userDoc';
 import UserState from '../../src/models/userState';
+import Screenplay from '../../src/models/screenplay';
 
 describe('The writing service', () => {
   describe('adding screenplay to user', () => {
     const userId = 'some-id';
     const screenplayId = 'some-other-id';
     let writingService: WritingService;
-    let couchDBClient: CouchDb;
-    let baseDoc: UserDoc;
+    let userState: UserState;
 
     beforeEach(() => {
-      couchDBClient = new CouchDb();
-      writingService = new WritingService();
-      baseDoc = {
-        userId,
-        screenplays: [],
-        owned: {
-          screenplays: []
-        }
-      };
-      const userState = new UserState(baseDoc);
-      sinon.stub(couchDBClient, 'get').returns(Promise.resolve(userState));
-      writingService.client = couchDBClient;
+      userState = new UserState(userId);
+      writingService = new WritingService(userState);
     })
 
-    it('should check if doc already exists', async () => {
-      await writingService.addScreenplayToUser(screenplayId, userId);
+    it('should get screenplay from pool', async () => {
+      const screenplay = {id: screenplayId} as Screenplay;
+      sinon.stub(userState, 'getScreenplayFromPool').returns(Promise.resolve(screenplay));
+
+      await writingService.addScreenplayToUser(screenplayId);
   
-      expect(couchDBClient.get).to.have.been.calledWith(userId);
+      expect(userState.getScreenplayFromPool).to.have.been.calledWith(screenplayId);
+    });
+
+    it('should be rejected if screenplay does not exist in pool', async () => {
+      sinon.stub(userState, 'getScreenplayFromPool').returns(Promise.resolve(undefined));
+      
+      await expect(writingService.addScreenplayToUser(screenplayId)).to.be.rejected;
     });
   });
 });
