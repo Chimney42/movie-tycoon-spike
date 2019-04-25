@@ -1,33 +1,17 @@
-import chai, { expect } from 'chai';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
-import chaiAsPromised from 'chai-as-promised';
-chai.use(sinonChai);
-chai.use(chaiAsPromised);
-
-import WritingService from '../../src/services/writingService';
-import UserState from '../../src/models/userState';
+import WritingService from "../../src/services/writingService";
+import Genre from "../../src/models/genre";
 import Screenplay from '../../src/models/screenplay';
+import {expect} from 'chai';
+import Writer from "../../src/models/writer";
 
-describe('The writing service', () => {
-  describe('adding screenplay to user', () => {
-    const userId = 'some-id';
-    const screenplayId = 'some-other-id';
-    let writingService: WritingService;
-    let userState: UserState;
+describe("The writing service", () => {
+  it('should create a new screenplay', () => {
+    const writer = new Writer('some-id', "Foo Bar",5);
+    const writingService = new WritingService();
 
-    beforeEach(() => {
-      userState = new UserState(userId);
-      writingService = new WritingService(userState);
-    })
-
-    it('should move screenplay from pool to owned', async () => {
-      const screenplay = {id: screenplayId} as Screenplay;
-      sinon.stub(userState, 'moveScreenplayFromPoolToOwned');
-
-      await writingService.addScreenplayToUser(screenplayId);
-  
-      expect(userState.moveScreenplayFromPoolToOwned).to.have.been.calledWith(screenplayId);
-    });
+    const screenplay = writingService.createNewScreenplay(writer, Genre.Action);
+    
+    expect(screenplay).to.be.instanceof(Screenplay);
+    expect(screenplay.rating).to.equal(writer.level);
   });
 });

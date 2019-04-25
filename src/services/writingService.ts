@@ -1,15 +1,11 @@
-import UserDoc from "../lib/userDoc";
-import UserState from '../models/userState';
+import Screenplay from "../models/screenplay";
+import Genre from "../models/genre";
+import Writer from '../models/writer';
+import uuid from 'uuid';
 
 class WritingService {
-  state: UserState;
-
-  constructor(state: UserState) {
-    this.state = state;
-  }
-
-  async addScreenplayToUser(screenplayId: string) {
-    return await this.state.moveScreenplayFromPoolToOwned(screenplayId);
+  createNewScreenplay(writer: Writer, genre: Genre) {
+    return new Screenplay(uuid.v4(), genre, writer.level, 1, 0, 0);
   }
 }
 
