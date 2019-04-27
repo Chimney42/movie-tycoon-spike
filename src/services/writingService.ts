@@ -5,6 +5,7 @@ import ScreenplayFactory from "../factories/screenplayFactory";
 import SchedulingService from "./schedulingService";
 import AddScreenplayToUserTask from "../models/tasks/addScreenplayToUserTask";
 import Task from "../models/tasks/task";
+import Screenplay from "../models/screenplay";
 
 class WritingService {
   stateService: StateService;
@@ -17,12 +18,16 @@ class WritingService {
     this.scheduler = scheduler;
   }
 
-  createNewScreenplayForUser(writerId: string, time: Time, genre: Genre, userId: string) {
+  writeScreenplay(writerId: string, time: Time, genre: Genre, userId: string) {
     const writer = this.stateService.getWriterById(writerId, userId);
     const screenplay = this.screenplayFactory.writeScreenplay(writer, time, genre);
     const task = new AddScreenplayToUserTask(screenplay, userId);
     
     this.scheduler.scheduleTask(task, time.passed);
+  }
+
+  buyScreenplay(screenplay: Screenplay, userId: string) {
+    this.stateService.addScreenplayToUser(screenplay, userId);
   }
 }
 
