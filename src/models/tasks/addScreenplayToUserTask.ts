@@ -7,7 +7,7 @@ class AddScreenplayToUserTask implements BaseTask {
   userId: string;
   screenplay: Screenplay
 
-  constructor(userId: string, screenplay: Screenplay) {
+  constructor(screenplay: Screenplay, userId: string) {
     this.name = Task.addScreenplayToUser;
     this.userId = userId;
     this.screenplay = screenplay;

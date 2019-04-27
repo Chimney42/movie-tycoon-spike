@@ -10,7 +10,7 @@ import SchedulingService from './src/services/schedulingService';
 const app: express.Application = express();
 const stateService = new StateService();
 const screenplayFactory = new ScreenplayFactory();
-const schedulingService = new SchedulingService();
+const schedulingService = new SchedulingService(stateService);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

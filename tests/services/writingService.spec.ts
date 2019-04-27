@@ -22,10 +22,10 @@ describe("The writing service", () => {
     const writer = new Writer(writerId, 'Foo Bar', 1);
     const time = { passed: 10, level: 1 };
     const screenplay = new Screenplay('some-screenplay-id', genre, 1, 1, 0, 0);
-    const task = new AddScreenplayToUserTask(userId, screenplay);
+    const task = new AddScreenplayToUserTask(screenplay, userId);
 
-    const scheduler = new SchedulingService();
     const stateService = new StateService();
+    const scheduler = new SchedulingService(stateService);
     const screenplayFactory = new ScreenplayFactory();
     const writingService = new WritingService(stateService, screenplayFactory, scheduler);
     sinon.stub(stateService, 'getWriterById').returns(writer);
