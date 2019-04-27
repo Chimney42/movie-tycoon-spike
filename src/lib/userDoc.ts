@@ -1,14 +1,8 @@
 import {MaybeDocument} from 'nano'
-import Screenplay from '../models/screenplay';
+import Writer from '../models/writer';
 
 interface UserDoc extends MaybeDocument {
-  userId: string,
-  pool: {
-    screenplays: Screenplay[],
-  },
-  owned: {
-    screenplays: Screenplay[]
-  }
+  userId: string
 }
 
 export default UserDoc;
