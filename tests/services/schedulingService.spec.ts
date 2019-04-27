@@ -23,9 +23,8 @@ describe('The scheduling service', () => {
     const task = new AddScreenplayToUserTask(screenplay, userId);
     sinon.spy(stateService, 'addScreenplayToUser');
 
-    scheduler.scheduleTask(task, time);
+    await scheduler.scheduleTask(task, time);
 
-    await sleep(time * 1.5);
     expect(stateService.addScreenplayToUser).to.have.been.calledWith(screenplay, userId);
   });
 });

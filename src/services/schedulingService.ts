@@ -11,12 +11,17 @@ class SchedulingService {
     this.stateService = stateService;
   }
 
-  scheduleTask(task: BaseTask, timePassed: number) {
+  scheduleTask(task: BaseTask, timePassed: number): Promise<null> {
     let fn = () => {};
-    if (task instanceof AddScreenplayToUserTask) {
-      fn = () => { this.stateService.addScreenplayToUser(task.screenplay, task.userId); }
-    }
-    setTimeout(fn, timePassed)
+    return new Promise((resolve, reject) => {
+      if (task instanceof AddScreenplayToUserTask) {
+        fn = () => { 
+          this.stateService.addScreenplayToUser(task.screenplay, task.userId); 
+          resolve();
+        }
+      }
+      setTimeout(fn, timePassed)
+    });
   }
 }
 
