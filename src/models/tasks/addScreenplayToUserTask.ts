@@ -1,8 +1,17 @@
 import BaseTask from "./baseTask";
 import Screenplay from "../screenplay";
+import Task from "./task";
 
-interface AddScreenplayToUserTask extends BaseTask {
+class AddScreenplayToUserTask implements BaseTask {
+  name: Task;
+  userId: string;
   screenplay: Screenplay
+
+  constructor(userId: string, screenplay: Screenplay) {
+    this.name = Task.addScreenplayToUser;
+    this.userId = userId;
+    this.screenplay = screenplay;
+  };
 }
 
 export default AddScreenplayToUserTask;

@@ -22,7 +22,7 @@ describe("The writing service", () => {
     const writer = new Writer(writerId, 'Foo Bar', 1);
     const time = { passed: 10, level: 1 };
     const screenplay = new Screenplay('some-screenplay-id', genre, 1, 1, 0, 0);
-    const task = {name: Task.addScreenplayToUser, userId, screenplay} as AddScreenplayToUserTask;
+    const task = new AddScreenplayToUserTask(userId, screenplay);
 
     const scheduler = new SchedulingService();
     const stateService = new StateService();
