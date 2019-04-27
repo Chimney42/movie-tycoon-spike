@@ -1,7 +1,9 @@
 import chai, {expect} from "chai";
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+import chaiAsPromised from 'chai-as-promised';
 chai.use(sinonChai);
+chai.use(chaiAsPromised);
 
 import SchedulingService from "../../src/services/schedulingService";
 import StateService from "../../src/services/stateService";
@@ -10,6 +12,7 @@ import Screenplay from "../../src/models/screenplay";
 import Genre from "../../src/models/genre";
 import AddActorsToUserPoolTask from "../../src/models/tasks/addActorsToUserPool";
 import Actor from "../../src/actor";
+import BaseTask from "../../src/models/tasks/baseTask";
 
 describe('The scheduling service', () => {
   const userId = 'some-user-id';
@@ -21,9 +24,10 @@ describe('The scheduling service', () => {
     scheduler = new SchedulingService(stateService);
   })
 
-  function sleep(s: number) {
-    return new Promise(resolve => setTimeout(resolve, s));
-  }
+  it('should reject if task is unknown', async () => {
+    const task = {} as BaseTask;
+    return expect(scheduler.scheduleTask(task, time)).to.be.rejectedWith(`Task unkown`);
+  });
 
   it('should schedule AddScreenplayToUser task', async () => {
     const screenplay = new Screenplay('', Genre.Action, 0, 0, 0, 0);
@@ -32,7 +36,7 @@ describe('The scheduling service', () => {
 
     await scheduler.scheduleTask(task, time);
 
-    expect(stateService.addScreenplayToUser).to.have.been.calledWith(screenplay, userId);
+    return expect(stateService.addScreenplayToUser).to.have.been.calledWith(screenplay, userId);
   });
 
   it('should schedule FindActors task', async () => {
@@ -41,6 +45,6 @@ describe('The scheduling service', () => {
     sinon.spy(stateService, 'addActorsToUserPool');
 
     await scheduler.scheduleTask(task, time);
-    expect(stateService.addActorsToUserPool).to.have.been.calledWith(actors, userId);
+    return expect(stateService.addActorsToUserPool).to.have.been.calledWith(actors, userId);
   });
 });

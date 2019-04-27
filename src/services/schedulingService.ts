@@ -25,8 +25,9 @@ class SchedulingService {
           this.stateService.addActorsToUserPool(task.actors, task.userId);
           resolve();
         }
+      } else {
+        reject(`Task unkown: ${task.name}`)
       }
-
 
       setTimeout(fn, timePassed)
     });
