@@ -18,12 +18,12 @@ class WritingService {
     this.scheduler = scheduler;
   }
 
-  writeScreenplay(writerId: string, time: Time, genre: Genre, userId: string) {
+  writeScreenplay(writerId: string, time: Time, genre: Genre, userId: string): Promise<null> {
     const writer = this.stateService.getWriterById(writerId, userId);
     const screenplay = this.screenplayFactory.writeScreenplay(writer, time, genre);
     const task = new AddScreenplayToUserTask(screenplay, userId);
     
-    this.scheduler.scheduleTask(task, time.passed);
+    return this.scheduler.scheduleTask(task, time.passed);
   }
 
   buyScreenplay(screenplay: Screenplay, userId: string) {

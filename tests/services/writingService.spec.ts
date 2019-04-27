@@ -27,7 +27,7 @@ describe("The writing service", () => {
     writingService = new WritingService(stateService, screenplayFactory, scheduler);
   })
 
-  it('should start process to create a new screenplay for user', () => {
+  it('should start process to create a new screenplay for user', async () => {
     const writerId = 'some-writer-id';
     const writer = new Writer(writerId, 'Foo Bar', 1);
     const time = { passed: 10, level: 1 };
@@ -35,9 +35,9 @@ describe("The writing service", () => {
     
     sinon.stub(stateService, 'getWriterById').returns(writer);
     sinon.stub(screenplayFactory, 'writeScreenplay').returns(screenplay);
-    sinon.spy(scheduler, 'scheduleTask');
+    sinon.stub(scheduler, 'scheduleTask').returns(Promise.resolve(null));
 
-    writingService.writeScreenplay(writerId, time, genre, userId);
+    await writingService.writeScreenplay(writerId, time, genre, userId);
     expect(stateService.getWriterById).to.have.been.calledWith(writerId);
     expect(screenplayFactory.writeScreenplay).to.have.been.calledWith(writer, time, genre);
     expect(scheduler.scheduleTask).to.have.been.calledWith(task);
