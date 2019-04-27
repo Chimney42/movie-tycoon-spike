@@ -35,7 +35,6 @@ describe('The scheduling service', () => {
     sinon.spy(stateService, 'addScreenplayToUser');
 
     await scheduler.scheduleTask(task, time);
-
     return expect(stateService.addScreenplayToUser).to.have.been.calledWith(screenplay, userId);
   });
 
