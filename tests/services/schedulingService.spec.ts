@@ -13,15 +13,20 @@ import Genre from "../../src/models/genre";
 import AddActorsToUserPoolTask from "../../src/models/tasks/addActorsToUserPool";
 import Actor from "../../src/models/actor";
 import BaseTask from "../../src/models/tasks/baseTask";
+import ReportingService from "../../src/services/reportingService";
+import Task from "../../src/models/tasks/task";
 
 describe('The scheduling service', () => {
   const userId = 'some-user-id';
   const time = 10;
   const stateService = new StateService();
+  let reportingService: ReportingService;
   let scheduler: SchedulingService;
 
   beforeEach(() => {
-    scheduler = new SchedulingService(stateService);
+    reportingService = new ReportingService();
+    scheduler = new SchedulingService(stateService, reportingService);
+    sinon.spy(reportingService, 'dispatch');
   })
 
   it('should reject if task is unknown', async () => {
@@ -32,18 +37,23 @@ describe('The scheduling service', () => {
   it('should schedule AddScreenplayToUser task', async () => {
     const screenplay = new Screenplay('', Genre.Action, 0, 0, 0, 0);
     const task = new AddScreenplayToUserTask(screenplay, userId);
+    const report = { userId, name: task.name } as BaseTask;
     sinon.spy(stateService, 'addScreenplayToUser');
+    
 
     await scheduler.scheduleTask(task, time);
-    return expect(stateService.addScreenplayToUser).to.have.been.calledWith(screenplay, userId);
+    expect(stateService.addScreenplayToUser).to.have.been.calledWith(screenplay, userId);
+    return expect(reportingService.dispatch).to.have.been.calledWith(report);
   });
 
   it('should schedule FindActors task', async () => {
     const actors = [new Actor('', '', 0)];
     const task = new AddActorsToUserPoolTask(actors, userId);
+    const report = { userId, name: task.name } as BaseTask;
     sinon.spy(stateService, 'addActorsToUserPool');
 
     await scheduler.scheduleTask(task, time);
-    return expect(stateService.addActorsToUserPool).to.have.been.calledWith(actors, userId);
+    expect(stateService.addActorsToUserPool).to.have.been.calledWith(actors, userId);
+    return expect(reportingService.dispatch).to.have.been.calledWith(report);
   });
 });

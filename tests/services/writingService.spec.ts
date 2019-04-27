@@ -12,6 +12,7 @@ import Writer from "../../src/models/writer";
 import Genre from "../../src/models/genre";
 import AddScreenplayToUserTask from "../../src/models/tasks/addScreenplayToUserTask";
 import Task from "../../src/models/tasks/task";
+import ReportingService from "../../src/services/reportingService";
 
 
 describe("The writing service", () => {
@@ -19,7 +20,8 @@ describe("The writing service", () => {
   const genre = Genre.Action;
   const screenplay = new Screenplay('some-screenplay-id', genre, 1, 1, 0, 0);
   const stateService = new StateService();
-  const scheduler = new SchedulingService(stateService);
+  const reportingService = new ReportingService();
+  const scheduler = new SchedulingService(stateService, reportingService);
   const screenplayFactory = new ScreenplayFactory();
   let writingService: WritingService;
 

@@ -1,7 +1,7 @@
-import Report from "../models/report";
+import BaseTask from "../models/tasks/baseTask";
 
 class ReportingService {
-  dispatch(report: Report) {
+  dispatch(report: BaseTask) {
 
   }
 };

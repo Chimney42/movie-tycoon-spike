@@ -12,6 +12,7 @@ import StateService from "../../src/services/stateService";
 import AddActorsToUserPoolTask from '../../src/models/tasks/addActorsToUserPool';
 import Actor from '../../src/models/actor';
 import ActorFactory from '../../src/factories/actorFactory';
+import ReportingService from '../../src/services/reportingService';
 
 describe('The casting service', () => {
   it('should start process to find actors', async () => {
@@ -26,7 +27,8 @@ describe('The casting service', () => {
 
     const actorFactory = new ActorFactory();
     const stateService = new StateService();
-    const scheduler = new SchedulingService(stateService);
+    const reportingService = new ReportingService();
+    const scheduler = new SchedulingService(stateService, reportingService);
     const castingService = new CastingService(scheduler, actorFactory);
     sinon.stub(actorFactory, 'castActors').returns(actors);
     sinon.stub(scheduler, 'scheduleTask').returns(Promise.resolve(null));
