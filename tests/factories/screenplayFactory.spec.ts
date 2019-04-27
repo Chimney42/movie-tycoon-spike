@@ -9,8 +9,9 @@ describe("The screenplay factory", () => {
     const writer = new Writer('some-writer-id', 'Foo Bar', 1);
     const time = { passed: 10, level: 1 };
     const genre = Genre.Action;
-
-    const screenplay = ScreenplayFactory.writeScreenplay(writer, time, genre);
+    const screenplayFactory = new ScreenplayFactory();
+    
+    const screenplay = screenplayFactory.writeScreenplay(writer, time, genre);
 
     expect(screenplay.id).not.to.be.empty;
     expect(screenplay.genre).to.equal(genre);
