@@ -10,7 +10,7 @@ import Genre from "../../src/models/genre";
 import SchedulingService from "../../src/services/schedulingService";
 import StateService from "../../src/services/stateService";
 import AddActorsToUserPoolTask from '../../src/models/tasks/addActorsToUserPool';
-import Actor from '../../src/actor';
+import Actor from '../../src/models/actor';
 import ActorFactory from '../../src/factories/actorFactory';
 
 describe('The casting service', () => {

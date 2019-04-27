@@ -1,6 +1,6 @@
 import Writer from "../models/writer";
 import Screenplay from "../models/screenplay";
-import Actor from "../actor";
+import Actor from "../models/actor";
 
 class StateService {
     getWriterById(writerId: string, userId: string): Writer {

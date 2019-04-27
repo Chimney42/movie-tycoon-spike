@@ -11,7 +11,7 @@ import AddScreenplayToUserTask from "../../src/models/tasks/addScreenplayToUserT
 import Screenplay from "../../src/models/screenplay";
 import Genre from "../../src/models/genre";
 import AddActorsToUserPoolTask from "../../src/models/tasks/addActorsToUserPool";
-import Actor from "../../src/actor";
+import Actor from "../../src/models/actor";
 import BaseTask from "../../src/models/tasks/baseTask";
 
 describe('The scheduling service', () => {

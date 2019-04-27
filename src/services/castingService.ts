@@ -1,6 +1,6 @@
 import Screenplay from "../models/screenplay";
 import Time from "../models/time";
-import Actor from "../actor";
+import Actor from "../models/actor";
 import SchedulingService from "./schedulingService";
 import AddActorsToUserPoolTask from "../models/tasks/addActorsToUserPool";
 import ActorFactory from "../factories/actorFactory";

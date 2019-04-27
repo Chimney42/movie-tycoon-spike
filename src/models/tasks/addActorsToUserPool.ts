@@ -1,6 +1,6 @@
 import BaseTask from "./baseTask";
 import Task from "./task";
-import Actor from "../../actor";
+import Actor from "../actor";
 
 class AddActorsToUserPoolTask implements BaseTask {
   name: Task;

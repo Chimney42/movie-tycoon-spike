@@ -1,4 +1,4 @@
-import Person from "./models/person";
+import Person from "./person";
 
 class Actor implements Person {
   id: string;
