@@ -32,6 +32,6 @@ describe('The casting service', () => {
     sinon.stub(scheduler, 'scheduleTask').returns(Promise.resolve(null));
 
     await castingService.findActors(screenplay, userId, time);
-    expect(scheduler.scheduleTask).to.have.been.calledWith(task);
+    return expect(scheduler.scheduleTask).to.have.been.calledWith(task);
   });
 });

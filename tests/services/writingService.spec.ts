@@ -40,7 +40,7 @@ describe("The writing service", () => {
     await writingService.writeScreenplay(writerId, time, genre, userId);
     expect(stateService.getWriterById).to.have.been.calledWith(writerId);
     expect(screenplayFactory.writeScreenplay).to.have.been.calledWith(writer, time, genre);
-    expect(scheduler.scheduleTask).to.have.been.calledWith(task);
+    return expect(scheduler.scheduleTask).to.have.been.calledWith(task);
   });
 
   it('should buy screenplay', () => {
