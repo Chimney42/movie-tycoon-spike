@@ -1,5 +1,6 @@
 enum Task {
-  addScreenplayToUser
+  addScreenplayToUser,
+  addActorsToUserPool
 }
 
 export default Task;

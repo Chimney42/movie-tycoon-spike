@@ -3,6 +3,7 @@ import StateService from "./stateService";
 import Task from "../models/tasks/task";
 import AddScreenplayToUserTask from "../models/tasks/addScreenplayToUserTask";
 import Screenplay from "../models/screenplay";
+import AddActorsToUserPoolTask from "../models/tasks/addActorsToUserPool";
 
 class SchedulingService {
   stateService: StateService;
@@ -19,7 +20,14 @@ class SchedulingService {
           this.stateService.addScreenplayToUser(task.screenplay, task.userId); 
           resolve();
         }
+      } else if (task instanceof AddActorsToUserPoolTask) {
+        fn = () => {
+          this.stateService.addActorsToUserPool(task.actors, task.userId);
+          resolve();
+        }
       }
+
+
       setTimeout(fn, timePassed)
     });
   }
