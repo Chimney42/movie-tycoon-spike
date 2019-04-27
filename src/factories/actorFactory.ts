@@ -2,7 +2,7 @@ import Screenplay from "../models/screenplay";
 import Actor from "../models/actor";
 
 class ActorFactory {
-  castActors(screenplay: Screenplay): Actor[] {
+  castActors(rating: number, count: number): Actor[] {
     return [];
   }
 }

@@ -15,7 +15,7 @@ import ActorFactory from '../../src/factories/actorFactory';
 import ReportingService from '../../src/services/reportingService';
 
 describe('The casting service', () => {
-  it('should start process to find actors', async () => {
+  it('should start process to find lead actors', async () => {
     const userId = 'some-user-id';
     const time = {
       passed: 1,
@@ -33,7 +33,7 @@ describe('The casting service', () => {
     sinon.stub(actorFactory, 'castActors').returns(actors);
     sinon.stub(scheduler, 'scheduleTask').returns(Promise.resolve(null));
 
-    await castingService.findActors(screenplay, userId, time);
+    await castingService.findLeadingActors(screenplay, userId, time);
     return expect(scheduler.scheduleTask).to.have.been.calledWith(task);
   });
 });

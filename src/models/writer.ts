@@ -1,4 +1,6 @@
-class Writer {
+import Person from "./person";
+
+class Writer implements Person {
   id: string;
   name: string;
   level: number;
