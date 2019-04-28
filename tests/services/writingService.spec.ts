@@ -10,7 +10,7 @@ import ScreenplayFactory from "../../src/factories/screenplayFactory";
 import Screenplay from '../../src/models/screenplay';
 import Writer from "../../src/models/writer";
 import Genre from "../../src/models/genre";
-import AddScreenplayToUserTask from "../../src/tasks/addScreenplayToUser";
+import BuyScreenplay from "../../src/tasks/buyScreenplay";
 import ReportingService from "../../src/services/reportingService";
 
 
@@ -32,7 +32,7 @@ describe("The writing service", () => {
     const writerId = 'some-writer-id';
     const writer = new Writer(writerId, 'Foo Bar', 1);
     const time = { ms: 10, level: 1 };
-    const task = new AddScreenplayToUserTask(screenplay, userId);
+    const task = new BuyScreenplay(screenplay, userId);
     
     sinon.stub(stateService, 'getWriterById').returns(writer);
     sinon.stub(screenplayFactory, 'writeScreenplay').returns(screenplay);

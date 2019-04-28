@@ -9,7 +9,7 @@ import Screenplay from "../../src/models/screenplay";
 import Genre from "../../src/models/genre";
 import SchedulingService from "../../src/services/schedulingService";
 import StateService from "../../src/services/stateService";
-import AddActorsToUserPoolTask from '../../src/tasks/addActorsToUserPool';
+import AddActorsToUserPoolTask from '../../src/tasks/castActors';
 import Actor from '../../src/models/actor';
 import ActorFactory from '../../src/factories/actorFactory';
 import ReportingService from '../../src/services/reportingService';

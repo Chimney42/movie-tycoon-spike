@@ -1,7 +1,7 @@
 import BaseTask from "../tasks/base";
 import StateService from "./stateService";
-import AddScreenplayToUserTask from "../tasks/addScreenplayToUser";
-import AddActorsToUserPoolTask from "../tasks/addActorsToUserPool";
+import BuyScreenplay from "../tasks/buyScreenplay";
+import AddActorsToUserPoolTask from "../tasks/castActors";
 import ReportingService from "./reportingService";
 import FilmSceneTask from "../tasks/filmScene";
 
@@ -15,24 +15,9 @@ class SchedulingService {
   }
 
   scheduleTask(task: BaseTask, timeInMs: number): Promise<null> {
-    let fn = () => {};
     return new Promise((resolve, reject) => {
-      if (task instanceof AddScreenplayToUserTask) {
-        fn = () => { 
-          this.stateService.addScreenplayToUser(task.screenplay, task.userId);
-        }
-      } else if (task instanceof AddActorsToUserPoolTask) {
-        fn = () => {
-          this.stateService.addActorsToUserPool(task.actors, task.userId);
-        }
-      } else if (task instanceof FilmSceneTask) {
-        
-      } else {
-        reject(`Task unkown: ${task.name}`)
-      }
-
       setTimeout(() => {
-        fn();
+        task.process(this.stateService);
         const report = {userId: task.userId, name: task.name} as BaseTask;
         this.reportingService.dispatch(report);
         resolve();

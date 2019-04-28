@@ -3,7 +3,7 @@ import Genre from "../models/genre";
 import StateService from "./stateService";
 import ScreenplayFactory from "../factories/screenplayFactory";
 import SchedulingService from "./schedulingService";
-import AddScreenplayToUserTask from "../tasks/addScreenplayToUser";
+import BuyScreenplay from "../tasks/buyScreenplay";
 import Screenplay from "../models/screenplay";
 
 class WritingService {
@@ -20,7 +20,7 @@ class WritingService {
   writeNewScreenplay(writerId: string, time: TaskTime, genre: Genre, userId: string): Promise<null> {
     const writer = this.stateService.getWriterById(writerId, userId);
     const screenplay = this.screenplayFactory.writeScreenplay(writer, time, genre);
-    const task = new AddScreenplayToUserTask(screenplay, userId);
+    const task = new BuyScreenplay(screenplay, userId);
     
     return this.scheduler.scheduleTask(task, time.ms);
   }

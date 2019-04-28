@@ -3,7 +3,7 @@ import Screenplay from "../models/screenplay";
 import TaskName from "./name";
 import StateService from "../services/stateService";
 
-class AddScreenplayToUserTask implements BaseTask {
+class BuyScreenplayTask implements BaseTask {
   name: TaskName;
   userId: string;
   screenplay: Screenplay
@@ -15,8 +15,8 @@ class AddScreenplayToUserTask implements BaseTask {
   };
 
   process(stateService: StateService) {
-    
+    stateService.addScreenplayToUser(this.screenplay, this.userId);
   };
 }
 
-export default AddScreenplayToUserTask;
+export default BuyScreenplayTask;

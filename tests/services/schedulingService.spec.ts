@@ -7,13 +7,13 @@ chai.use(chaiAsPromised);
 
 import SchedulingService from "../../src/services/schedulingService";
 import StateService from "../../src/services/stateService";
-import AddScreenplayToUserTask from "../../src/tasks/addScreenplayToUser";
 import Screenplay from "../../src/models/screenplay";
 import Genre from "../../src/models/genre";
-import AddActorsToUserPoolTask from "../../src/tasks/addActorsToUserPool";
+import CastActorsTask from "../../src/tasks/castActors";
 import Actor from "../../src/models/actor";
 import BaseTask from "../../src/tasks/base";
 import ReportingService from "../../src/services/reportingService";
+import BuyScreenplayTask from "../../src/tasks/buyScreenplay";
 
 describe('The scheduling service', () => {
   const userId = 'some-user-id';
@@ -28,31 +28,12 @@ describe('The scheduling service', () => {
     sinon.spy(reportingService, 'dispatch');
   })
 
-  it('should reject if task is unknown', async () => {
-    const task = {} as BaseTask;
-    return expect(scheduler.scheduleTask(task, time)).to.be.rejectedWith(`Task unkown`);
-  });
-
-  it('should schedule AddScreenplayToUser task', async () => {
+  it('should schedule task', async () => {
     const screenplay = new Screenplay('', Genre.Action, 0, 1);
-    const task = new AddScreenplayToUserTask(screenplay, userId);
-    const report = { userId, name: task.name } as BaseTask;
-    sinon.spy(stateService, 'addScreenplayToUser');
-    
+    const task = new BuyScreenplayTask(screenplay, userId);
+    sinon.spy(task, 'process');
 
     await scheduler.scheduleTask(task, time);
-    expect(stateService.addScreenplayToUser).to.have.been.calledWith(screenplay, userId);
-    return expect(reportingService.dispatch).to.have.been.calledWith(report);
-  });
-
-  it('should schedule FindActors task', async () => {
-    const actors = [new Actor('', '', 0)];
-    const task = new AddActorsToUserPoolTask(actors, userId);
-    const report = { userId, name: task.name } as BaseTask;
-    sinon.spy(stateService, 'addActorsToUserPool');
-
-    await scheduler.scheduleTask(task, time);
-    expect(stateService.addActorsToUserPool).to.have.been.calledWith(actors, userId);
-    return expect(reportingService.dispatch).to.have.been.calledWith(report);
+    return expect(task.process).to.have.been.calledWith(stateService);
   });
 });
