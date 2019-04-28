@@ -1,8 +1,7 @@
 import Screenplay from "../models/screenplay";
-import TaskTime from "../models/tasks/time";
-import Actor from "../models/actor";
+import TaskTime from "../tasks/time";
 import SchedulingService from "./schedulingService";
-import AddActorsToUserPoolTask from "../models/tasks/addActorsToUserPool";
+import AddActorsToUserPoolTask from "../tasks/addActorsToUserPool";
 import ActorFactory from "../factories/actorFactory";
 
 class CastingService {

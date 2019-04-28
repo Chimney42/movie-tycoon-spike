@@ -4,12 +4,12 @@ import sinonChai from 'sinon-chai';
 chai.use(sinonChai);
 
 import CastingService from "../../src/services/castingService";
-import TaskTime from "../../src/models/tasks/time";
+import TaskTime from "../../src/tasks/time";
 import Screenplay from "../../src/models/screenplay";
 import Genre from "../../src/models/genre";
 import SchedulingService from "../../src/services/schedulingService";
 import StateService from "../../src/services/stateService";
-import AddActorsToUserPoolTask from '../../src/models/tasks/addActorsToUserPool';
+import AddActorsToUserPoolTask from '../../src/tasks/addActorsToUserPool';
 import Actor from '../../src/models/actor';
 import ActorFactory from '../../src/factories/actorFactory';
 import ReportingService from '../../src/services/reportingService';

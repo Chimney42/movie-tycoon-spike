@@ -1,7 +1,7 @@
 import uuid from 'uuid';
 
 import Writer from "../models/writer";
-import TaskTime from "../models/tasks/time";
+import TaskTime from "../tasks/time";
 import Screenplay from "../models/screenplay";
 import Genre from "../models/genre";
 

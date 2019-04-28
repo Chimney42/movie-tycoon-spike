@@ -1,6 +1,7 @@
-import BaseTask from "./baseTask";
+import BaseTask from "./base";
 import TaskName from "./name";
-import Actor from "../actor";
+import Actor from "../models/actor";
+import StateService from "../services/stateService";
 
 class AddActorsToUserPoolTask implements BaseTask {
   name: TaskName;
@@ -12,6 +13,8 @@ class AddActorsToUserPoolTask implements BaseTask {
     this.actors = actors;
     this.userId = userId;
   }
+
+  process(stateService: StateService) {}
 }
 
 export default AddActorsToUserPoolTask;

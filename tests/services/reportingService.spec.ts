@@ -1,6 +1,6 @@
 import ReportingService from "../../src/services/reportingService";
-import TaskName from "../../src/models/tasks/name";
-import BaseTask from "../../src/models/tasks/baseTask";
+import TaskName from "../../src/tasks/name";
+import BaseTask from "../../src/tasks/base";
 
 describe('The reporting service', () => {
   const userId = 'some-user-id';

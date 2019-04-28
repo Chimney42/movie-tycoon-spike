@@ -1,7 +1,7 @@
 import Scene from "../models/scene";
-import TaskTime from "../models/tasks/time";
+import TaskTime from "../tasks/time";
 import SchedulingService from "./schedulingService";
-import FilmSceneTask from "../models/tasks/filmSceneTask";
+import FilmSceneTask from "../tasks/filmScene";
 
 class ShootingService {
   schedulingService: SchedulingService;

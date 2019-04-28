@@ -10,7 +10,7 @@ import ScreenplayFactory from "../../src/factories/screenplayFactory";
 import Screenplay from '../../src/models/screenplay';
 import Writer from "../../src/models/writer";
 import Genre from "../../src/models/genre";
-import AddScreenplayToUserTask from "../../src/models/tasks/addScreenplayToUserTask";
+import AddScreenplayToUserTask from "../../src/tasks/addScreenplayToUser";
 import ReportingService from "../../src/services/reportingService";
 
 

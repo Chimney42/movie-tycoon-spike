@@ -6,11 +6,10 @@ chai.use(sinonChai);
 import Scene from '../../src/models/scene';
 import ShootingService from "../../src/services/shootingService";
 import { Filmset, SetSize, SetType } from '../../src/models/filmset';
-import TaskTime from "../../src/models/tasks/time";
 import SchedulingService from '../../src/services/schedulingService';
 import StateService from '../../src/services/stateService';
 import ReportingService from '../../src/services/reportingService';
-import FilmSceneTask from '../../src/models/tasks/filmSceneTask';
+import FilmSceneTask from '../../src/tasks/filmScene';
 
 describe('The shooting service', () => {
   it('should start process to shoot a scene', () => {

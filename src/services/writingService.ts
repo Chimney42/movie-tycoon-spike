@@ -1,9 +1,9 @@
-import TaskTime from "../models/tasks/time";
+import TaskTime from "../tasks/time";
 import Genre from "../models/genre";
 import StateService from "./stateService";
 import ScreenplayFactory from "../factories/screenplayFactory";
 import SchedulingService from "./schedulingService";
-import AddScreenplayToUserTask from "../models/tasks/addScreenplayToUserTask";
+import AddScreenplayToUserTask from "../tasks/addScreenplayToUser";
 import Screenplay from "../models/screenplay";
 
 class WritingService {

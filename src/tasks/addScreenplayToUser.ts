@@ -1,6 +1,7 @@
-import BaseTask from "./baseTask";
-import Screenplay from "../screenplay";
+import BaseTask from "./base";
+import Screenplay from "../models/screenplay";
 import TaskName from "./name";
+import StateService from "../services/stateService";
 
 class AddScreenplayToUserTask implements BaseTask {
   name: TaskName;
@@ -11,6 +12,10 @@ class AddScreenplayToUserTask implements BaseTask {
     this.name = TaskName.addScreenplayToUser;
     this.userId = userId;
     this.screenplay = screenplay;
+  };
+
+  process(stateService: StateService) {
+    
   };
 }
 

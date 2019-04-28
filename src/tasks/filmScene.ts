@@ -1,6 +1,7 @@
-import BaseTask from "./baseTask";
+import BaseTask from "./base";
 import TaskName from "./name";
-import Scene from "../scene";
+import Scene from "../models/scene";
+import StateService from "../services/stateService";
 
 class FilmSceneTask implements BaseTask {
   userId: string;
@@ -12,6 +13,8 @@ class FilmSceneTask implements BaseTask {
     this.scene = scene;
     this.userId = userId;
   }
+
+  process(stateService: StateService) {}
 }
 
 export default FilmSceneTask;

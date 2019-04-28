@@ -7,12 +7,12 @@ chai.use(chaiAsPromised);
 
 import SchedulingService from "../../src/services/schedulingService";
 import StateService from "../../src/services/stateService";
-import AddScreenplayToUserTask from "../../src/models/tasks/addScreenplayToUserTask";
+import AddScreenplayToUserTask from "../../src/tasks/addScreenplayToUser";
 import Screenplay from "../../src/models/screenplay";
 import Genre from "../../src/models/genre";
-import AddActorsToUserPoolTask from "../../src/models/tasks/addActorsToUserPool";
+import AddActorsToUserPoolTask from "../../src/tasks/addActorsToUserPool";
 import Actor from "../../src/models/actor";
-import BaseTask from "../../src/models/tasks/baseTask";
+import BaseTask from "../../src/tasks/base";
 import ReportingService from "../../src/services/reportingService";
 
 describe('The scheduling service', () => {

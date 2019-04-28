@@ -1,4 +1,4 @@
-import BaseTask from "../models/tasks/baseTask";
+import BaseTask from "../tasks/base";
 
 class ReportingService {
   dispatch(report: BaseTask) {

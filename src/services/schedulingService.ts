@@ -1,9 +1,9 @@
-import BaseTask from "../models/tasks/baseTask";
+import BaseTask from "../tasks/base";
 import StateService from "./stateService";
-import AddScreenplayToUserTask from "../models/tasks/addScreenplayToUserTask";
-import AddActorsToUserPoolTask from "../models/tasks/addActorsToUserPool";
+import AddScreenplayToUserTask from "../tasks/addScreenplayToUser";
+import AddActorsToUserPoolTask from "../tasks/addActorsToUserPool";
 import ReportingService from "./reportingService";
-import FilmSceneTask from "../models/tasks/filmSceneTask";
+import FilmSceneTask from "../tasks/filmScene";
 
 class SchedulingService {
   stateService: StateService;
