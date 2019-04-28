@@ -9,7 +9,7 @@ import Screenplay from "../../src/models/screenplay";
 import Genre from "../../src/models/genre";
 import SchedulingService from "../../src/services/schedulingService";
 import StateService from "../../src/services/stateService";
-import AddActorsToUserPoolTask from '../../src/tasks/castActors';
+import CastActorsTask from '../../src/tasks/castActors';
 import Actor from '../../src/models/actor';
 import ActorFactory from '../../src/factories/actorFactory';
 import ReportingService from '../../src/services/reportingService';
@@ -18,16 +18,14 @@ describe('The casting service', () => {
   it('should start process to find lead actors', async () => {
     const userId = 'some-user-id';
     const time = { ms: 1, level: 1 };
-    const actors = [new Actor('some-actor-id', 'some name', 0)];
-    const task = new AddActorsToUserPoolTask(actors, userId);
     const screenplay = new Screenplay('some-screenplay-id', Genre.Action, 0, 1);
 
+    const reportingService = new ReportingService();
+    const scheduler = new SchedulingService(reportingService);
     const actorFactory = new ActorFactory();
     const stateService = new StateService();
-    const reportingService = new ReportingService();
-    const scheduler = new SchedulingService(stateService, reportingService);
-    const castingService = new CastingService(scheduler, actorFactory);
-    sinon.stub(actorFactory, 'castActors').returns(actors);
+    const castingService = new CastingService(scheduler, actorFactory, stateService);
+    const task = new CastActorsTask(screenplay, userId, actorFactory, stateService);
     sinon.stub(scheduler, 'scheduleTask').returns(Promise.resolve(null));
 
     await castingService.findLeadingActors(screenplay, userId, time);

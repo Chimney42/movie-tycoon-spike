@@ -14,7 +14,7 @@ class FilmSceneTask implements BaseTask {
     this.userId = userId;
   }
 
-  process(stateService: StateService) {}
+  process() {}
 }
 
 export default FilmSceneTask;

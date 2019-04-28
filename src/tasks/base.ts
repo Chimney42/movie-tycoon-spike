@@ -4,7 +4,7 @@ import StateService from "../services/stateService";
 interface BaseTask {
   name: TaskName,
   userId: string
-  process: (stateService: StateService) => void;
+  process: () => void;
 };
 
 export default BaseTask;

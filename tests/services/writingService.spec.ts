@@ -20,7 +20,7 @@ describe("The writing service", () => {
   const screenplay = new Screenplay('some-screenplay-id', genre, 1, 1);
   const stateService = new StateService();
   const reportingService = new ReportingService();
-  const scheduler = new SchedulingService(stateService, reportingService);
+  const scheduler = new SchedulingService(reportingService);
   const screenplayFactory = new ScreenplayFactory();
   let writingService: WritingService;
 
@@ -32,7 +32,7 @@ describe("The writing service", () => {
     const writerId = 'some-writer-id';
     const writer = new Writer(writerId, 'Foo Bar', 1);
     const time = { ms: 10, level: 1 };
-    const task = new BuyScreenplay(screenplay, userId);
+    const task = new BuyScreenplay(screenplay, userId, stateService);
     
     sinon.stub(stateService, 'getWriterById').returns(writer);
     sinon.stub(screenplayFactory, 'writeScreenplay').returns(screenplay);

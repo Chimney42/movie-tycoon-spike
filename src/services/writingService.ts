@@ -20,7 +20,7 @@ class WritingService {
   writeNewScreenplay(writerId: string, time: TaskTime, genre: Genre, userId: string): Promise<null> {
     const writer = this.stateService.getWriterById(writerId, userId);
     const screenplay = this.screenplayFactory.writeScreenplay(writer, time, genre);
-    const task = new BuyScreenplay(screenplay, userId);
+    const task = new BuyScreenplay(screenplay, userId, this.stateService);
     
     return this.scheduler.scheduleTask(task, time.ms);
   }

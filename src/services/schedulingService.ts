@@ -6,18 +6,16 @@ import ReportingService from "./reportingService";
 import FilmSceneTask from "../tasks/filmScene";
 
 class SchedulingService {
-  stateService: StateService;
   reportingService: ReportingService;
 
-  constructor(stateService: StateService, reportingService: ReportingService) {
-    this.stateService = stateService;
+  constructor(reportingService: ReportingService) {
     this.reportingService = reportingService;
   }
 
   scheduleTask(task: BaseTask, timeInMs: number): Promise<null> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        task.process(this.stateService);
+        task.process();
         const report = {userId: task.userId, name: task.name} as BaseTask;
         this.reportingService.dispatch(report);
         resolve();

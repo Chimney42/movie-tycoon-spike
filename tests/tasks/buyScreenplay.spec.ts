@@ -15,9 +15,9 @@ describe('The BuyScreenplay task', () => {
     
     const stateService = new StateService();
     sinon.spy(stateService, 'addScreenplayToUser')
-    const task = new BuyScreenplayTask(screenplay, userId);
+    const task = new BuyScreenplayTask(screenplay, userId, stateService);
     
-    task.process(stateService);
+    task.process();
     expect(stateService.addScreenplayToUser).to.have.been.calledWith(screenplay, userId);
   });
 });

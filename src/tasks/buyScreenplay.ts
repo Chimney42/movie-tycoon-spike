@@ -4,18 +4,20 @@ import TaskName from "./name";
 import StateService from "../services/stateService";
 
 class BuyScreenplayTask implements BaseTask {
+  stateService: StateService;
   name: TaskName;
   userId: string;
   screenplay: Screenplay
 
-  constructor(screenplay: Screenplay, userId: string) {
+  constructor(screenplay: Screenplay, userId: string, stateService: StateService) {
     this.name = TaskName.addScreenplayToUser;
     this.userId = userId;
     this.screenplay = screenplay;
+    this.stateService = stateService;
   };
 
-  process(stateService: StateService) {
-    stateService.addScreenplayToUser(this.screenplay, this.userId);
+  process() {
+    this.stateService.addScreenplayToUser(this.screenplay, this.userId);
   };
 }
 

@@ -21,7 +21,7 @@ describe('The shooting service', () => {
 
     const stateService = new StateService();
     const reportingService = new ReportingService();
-    const schedulingService = new SchedulingService(stateService, reportingService);
+    const schedulingService = new SchedulingService(reportingService);
     const shootingService = new ShootingService(schedulingService);
     sinon.spy(schedulingService, 'scheduleTask');
     

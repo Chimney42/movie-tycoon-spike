@@ -24,16 +24,16 @@ describe('The scheduling service', () => {
 
   beforeEach(() => {
     reportingService = new ReportingService();
-    scheduler = new SchedulingService(stateService, reportingService);
+    scheduler = new SchedulingService(reportingService);
     sinon.spy(reportingService, 'dispatch');
   })
 
   it('should schedule task', async () => {
     const screenplay = new Screenplay('', Genre.Action, 0, 1);
-    const task = new BuyScreenplayTask(screenplay, userId);
+    const task = new BuyScreenplayTask(screenplay, userId, stateService);
     sinon.spy(task, 'process');
 
     await scheduler.scheduleTask(task, time);
-    return expect(task.process).to.have.been.calledWith(stateService);
+    return expect(task.process).to.have.been.called;
   });
 });
