@@ -23,7 +23,7 @@ describe('The casting service', () => {
     } as Time;
     const actors = [new Actor('some-actor-id', 'some name', 0)];
     const task = new AddActorsToUserPoolTask(actors, userId);
-    const screenplay = new Screenplay('some-screenplay-id', Genre.Action, 0, 0, 0, 0);
+    const screenplay = new Screenplay('some-screenplay-id', Genre.Action, 0, 1);
 
     const actorFactory = new ActorFactory();
     const stateService = new StateService();

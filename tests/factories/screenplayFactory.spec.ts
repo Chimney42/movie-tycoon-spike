@@ -16,8 +16,5 @@ describe("The screenplay factory", () => {
     expect(screenplay.id).not.to.be.empty;
     expect(screenplay.genre).to.equal(genre);
     expect(screenplay.rating).to.be.within(1, 5);
-    expect(screenplay.leadingActorCount).to.be.at.least(1);
-    expect(screenplay.supportingActorCount).to.be.at.least(0);
-    expect(screenplay.backgroundActorCount).to.be.at.least(0);
   });
 });

@@ -18,7 +18,7 @@ import ReportingService from "../../src/services/reportingService";
 describe("The writing service", () => {
   const userId = 'some-user-id';
   const genre = Genre.Action;
-  const screenplay = new Screenplay('some-screenplay-id', genre, 1, 1, 0, 0);
+  const screenplay = new Screenplay('some-screenplay-id', genre, 1, 1);
   const stateService = new StateService();
   const reportingService = new ReportingService();
   const scheduler = new SchedulingService(stateService, reportingService);

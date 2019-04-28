@@ -35,7 +35,7 @@ describe('The scheduling service', () => {
   });
 
   it('should schedule AddScreenplayToUser task', async () => {
-    const screenplay = new Screenplay('', Genre.Action, 0, 0, 0, 0);
+    const screenplay = new Screenplay('', Genre.Action, 0, 1);
     const task = new AddScreenplayToUserTask(screenplay, userId);
     const report = { userId, name: task.name } as BaseTask;
     sinon.spy(stateService, 'addScreenplayToUser');

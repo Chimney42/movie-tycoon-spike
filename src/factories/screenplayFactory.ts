@@ -8,7 +8,7 @@ import Genre from "../models/genre";
 class ScreenplayFactory {
   writeScreenplay(writer: Writer, time: Time, genre: Genre): Screenplay {
     const id = uuid.v4();
-    return new Screenplay(id, Genre.Action, 1, 1, 0, 0);
+    return new Screenplay(id, Genre.Action, 1, 1);
   }
 }
 

@@ -5,6 +5,7 @@ import AddScreenplayToUserTask from "../models/tasks/addScreenplayToUserTask";
 import Screenplay from "../models/screenplay";
 import AddActorsToUserPoolTask from "../models/tasks/addActorsToUserPool";
 import ReportingService from "./reportingService";
+import FilmSceneTask from "../models/tasks/filmSceneTask";
 
 class SchedulingService {
   stateService: StateService;
@@ -26,6 +27,8 @@ class SchedulingService {
         fn = () => {
           this.stateService.addActorsToUserPool(task.actors, task.userId);
         }
+      } else if (task instanceof FilmSceneTask) {
+
       } else {
         reject(`Task unkown: ${task.name}`)
       }
