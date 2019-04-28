@@ -6,7 +6,7 @@ chai.use(sinonChai);
 import Scene from '../../src/models/scene';
 import ShootingService from "../../src/services/shootingService";
 import { Filmset, SetSize, SetType } from '../../src/models/filmset';
-import Time from '../../src/models/time';
+import TaskTime from "../../src/models/tasks/time";
 import SchedulingService from '../../src/services/schedulingService';
 import StateService from '../../src/services/stateService';
 import ReportingService from '../../src/services/reportingService';
@@ -17,7 +17,7 @@ describe('The shooting service', () => {
     const userId = 'some-user-id';
     const set = new Filmset("", SetSize.large, SetType.external)
     const scene: Scene = new Scene('some-scene-id', set, [], [], []);
-    const time = {passed: 0, level: 1} as Time;
+    const time = { ms: 0, level: 1 };
     const task = new FilmSceneTask(scene, userId);
 
     const stateService = new StateService();
@@ -27,6 +27,6 @@ describe('The shooting service', () => {
     sinon.spy(schedulingService, 'scheduleTask');
     
     shootingService.filmScene(scene, userId, time);
-    expect(schedulingService.scheduleTask).to.have.been.calledWith(task, time.passed);
+    expect(schedulingService.scheduleTask).to.have.been.calledWith(task, time.ms);
   });
 });

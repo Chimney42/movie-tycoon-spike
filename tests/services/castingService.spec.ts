@@ -4,7 +4,7 @@ import sinonChai from 'sinon-chai';
 chai.use(sinonChai);
 
 import CastingService from "../../src/services/castingService";
-import Time from "../../src/models/time";
+import TaskTime from "../../src/models/tasks/time";
 import Screenplay from "../../src/models/screenplay";
 import Genre from "../../src/models/genre";
 import SchedulingService from "../../src/services/schedulingService";
@@ -17,10 +17,7 @@ import ReportingService from '../../src/services/reportingService';
 describe('The casting service', () => {
   it('should start process to find lead actors', async () => {
     const userId = 'some-user-id';
-    const time = {
-      passed: 1,
-      level: 1
-    } as Time;
+    const time = { ms: 1, level: 1 };
     const actors = [new Actor('some-actor-id', 'some name', 0)];
     const task = new AddActorsToUserPoolTask(actors, userId);
     const screenplay = new Screenplay('some-screenplay-id', Genre.Action, 0, 1);

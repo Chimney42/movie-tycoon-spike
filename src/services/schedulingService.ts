@@ -1,8 +1,6 @@
 import BaseTask from "../models/tasks/baseTask";
 import StateService from "./stateService";
-import Task from "../models/tasks/task";
 import AddScreenplayToUserTask from "../models/tasks/addScreenplayToUserTask";
-import Screenplay from "../models/screenplay";
 import AddActorsToUserPoolTask from "../models/tasks/addActorsToUserPool";
 import ReportingService from "./reportingService";
 import FilmSceneTask from "../models/tasks/filmSceneTask";
@@ -16,7 +14,7 @@ class SchedulingService {
     this.reportingService = reportingService;
   }
 
-  scheduleTask(task: BaseTask, timePassed: number): Promise<null> {
+  scheduleTask(task: BaseTask, timeInMs: number): Promise<null> {
     let fn = () => {};
     return new Promise((resolve, reject) => {
       if (task instanceof AddScreenplayToUserTask) {
@@ -28,7 +26,7 @@ class SchedulingService {
           this.stateService.addActorsToUserPool(task.actors, task.userId);
         }
       } else if (task instanceof FilmSceneTask) {
-
+        
       } else {
         reject(`Task unkown: ${task.name}`)
       }
@@ -38,7 +36,7 @@ class SchedulingService {
         const report = {userId: task.userId, name: task.name} as BaseTask;
         this.reportingService.dispatch(report);
         resolve();
-      }, timePassed)
+      }, timeInMs)
     });
   }
 }

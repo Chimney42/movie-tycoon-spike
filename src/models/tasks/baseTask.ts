@@ -1,7 +1,7 @@
-import Task from "./task";
+import TaskName from "./name";
 
 interface BaseTask {
-  name: Task,
+  name: TaskName,
   userId: string
 };
 

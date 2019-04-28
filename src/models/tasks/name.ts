@@ -1,7 +1,7 @@
-enum Task {
+enum TaskName {
   addScreenplayToUser,
   addActorsToUserPool,
   filmScene
 }
 
-export default Task;
+export default TaskName;

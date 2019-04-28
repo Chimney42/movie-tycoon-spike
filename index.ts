@@ -5,12 +5,14 @@ import WritingService from './src/services/writingService';
 import StateService from './src/services/stateService';
 import ScreenplayFactory from './src/factories/screenplayFactory';
 import SchedulingService from './src/services/schedulingService';
+import ReportingService from './src/services/reportingService';
 
 // Create a new express application instance
 const app: express.Application = express();
 const stateService = new StateService();
 const screenplayFactory = new ScreenplayFactory();
-const schedulingService = new SchedulingService(stateService);
+const reportingService = new ReportingService();
+const schedulingService = new SchedulingService(stateService, reportingService);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,11 +24,11 @@ app.get('/', function (req, res) {
 app.put('/user/:userId/createNewScreenplay/', async (req, res) => {
   const userId = req.params.userId;
   const writerId = req.body.writerId;
-  const time = {passed: req.body.timePassed, level: req.body.timeLevel};
+  const time = {ms: req.body.time.ms, level: req.body.time.level};
   const genre = req.body.genre
   const writingService = new WritingService(stateService, screenplayFactory, schedulingService);
 
-  writingService.createNewScreenplayForUser(writerId, time, genre, userId);
+  writingService.writeNewScreenplay(writerId, time, genre, userId);
   res.send(`started process to create a new screenplay for player ${userId}`);
 })
 

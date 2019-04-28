@@ -1,5 +1,5 @@
 import Scene from "../models/scene";
-import Time from "../models/time";
+import TaskTime from "../models/tasks/time";
 import SchedulingService from "./schedulingService";
 import FilmSceneTask from "../models/tasks/filmSceneTask";
 
@@ -10,9 +10,9 @@ class ShootingService {
     this.schedulingService = schedulingService;
   }
 
-  filmScene(scene: Scene, userId: string, time: Time) {
+  filmScene(scene: Scene, userId: string, time: TaskTime) {
     const task = new FilmSceneTask(scene, userId);
-    this.schedulingService.scheduleTask(task, time.passed);
+    this.schedulingService.scheduleTask(task, time.ms);
   };
 }
 

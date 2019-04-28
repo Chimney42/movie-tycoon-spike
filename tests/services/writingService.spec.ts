@@ -11,7 +11,6 @@ import Screenplay from '../../src/models/screenplay';
 import Writer from "../../src/models/writer";
 import Genre from "../../src/models/genre";
 import AddScreenplayToUserTask from "../../src/models/tasks/addScreenplayToUserTask";
-import Task from "../../src/models/tasks/task";
 import ReportingService from "../../src/services/reportingService";
 
 
@@ -32,14 +31,14 @@ describe("The writing service", () => {
   it('should start process to create a new screenplay for user', async () => {
     const writerId = 'some-writer-id';
     const writer = new Writer(writerId, 'Foo Bar', 1);
-    const time = { passed: 10, level: 1 };
+    const time = { ms: 10, level: 1 };
     const task = new AddScreenplayToUserTask(screenplay, userId);
     
     sinon.stub(stateService, 'getWriterById').returns(writer);
     sinon.stub(screenplayFactory, 'writeScreenplay').returns(screenplay);
     sinon.stub(scheduler, 'scheduleTask').returns(Promise.resolve(null));
 
-    await writingService.writeScreenplay(writerId, time, genre, userId);
+    await writingService.writeNewScreenplay(writerId, time, genre, userId);
     expect(stateService.getWriterById).to.have.been.calledWith(writerId);
     expect(screenplayFactory.writeScreenplay).to.have.been.calledWith(writer, time, genre);
     return expect(scheduler.scheduleTask).to.have.been.calledWith(task);

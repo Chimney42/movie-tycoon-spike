@@ -14,7 +14,6 @@ import AddActorsToUserPoolTask from "../../src/models/tasks/addActorsToUserPool"
 import Actor from "../../src/models/actor";
 import BaseTask from "../../src/models/tasks/baseTask";
 import ReportingService from "../../src/services/reportingService";
-import Task from "../../src/models/tasks/task";
 
 describe('The scheduling service', () => {
   const userId = 'some-user-id';

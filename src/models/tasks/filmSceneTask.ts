@@ -1,14 +1,14 @@
 import BaseTask from "./baseTask";
-import Task from "./task";
+import TaskName from "./name";
 import Scene from "../scene";
 
 class FilmSceneTask implements BaseTask {
   userId: string;
-  name: Task;
+  name: TaskName;
   scene: Scene;
 
   constructor(scene: Scene, userId: string) {
-    this.name = Task.filmScene;
+    this.name = TaskName.filmScene;
     this.scene = scene;
     this.userId = userId;
   }
