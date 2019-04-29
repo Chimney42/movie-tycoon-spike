@@ -12,7 +12,7 @@ const app: express.Application = express();
 const stateService = new StateService();
 const screenplayFactory = new ScreenplayFactory();
 const reportingService = new ReportingService();
-const schedulingService = new SchedulingService(stateService, reportingService);
+const schedulingService = new SchedulingService(reportingService);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

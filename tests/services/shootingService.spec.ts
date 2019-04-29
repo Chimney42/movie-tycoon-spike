@@ -17,12 +17,12 @@ describe('The shooting service', () => {
     const set = new Filmset("", SetSize.large, SetType.external)
     const scene: Scene = new Scene('some-scene-id', set, [], [], []);
     const time = { ms: 0, level: 1 };
-    const task = new FilmSceneTask(scene, userId);
 
     const stateService = new StateService();
     const reportingService = new ReportingService();
     const schedulingService = new SchedulingService(reportingService);
-    const shootingService = new ShootingService(schedulingService);
+    const shootingService = new ShootingService(schedulingService, stateService);
+    const task = new FilmSceneTask(scene, userId, stateService);
     sinon.spy(schedulingService, 'scheduleTask');
     
     shootingService.filmScene(scene, userId, time);
